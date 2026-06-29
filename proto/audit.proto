@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package audit;
+option go_package = "ssh-bastion/proto";
+
+service Audit {
+    rpc CheckCommand (CommandRequest) returns (CommandResponse);
+    rpc LogCommand (LogRequest) returns (Empty);
+    // 新增：从审计/第三方系统获取后端密码
+    rpc GetBackendCredentials (CredentialRequest) returns (CredentialResponse);
+}
+
+message CommandRequest {
+    string command = 1;
+    string user = 2;
+    string target = 3;
+}
+
+message CommandResponse {
+    bool allowed = 1;
+    string reason = 2;
+}
+
+message LogRequest {
+    string command = 1;
+    string user = 2;
+}
+
+message CredentialRequest {
+    string target_ip = 1;
+}
+
+message CredentialResponse {
+    string password = 1;
+}
+
+message Empty {}

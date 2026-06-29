@@ -1,0 +1,8 @@
+listen_addr: "localhost:50051"
+blacklist:
+  - "rm -rf /"
+  - "shutdown"
+  - "reboot"
+passwords:
+  "root_192.168.65.100": "123456"
+  "23852_127.0.0.1": "Mys+060322"  
