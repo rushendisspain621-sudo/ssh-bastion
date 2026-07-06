@@ -12,13 +12,13 @@ import (
 )
 
 func main() {
-	// 1. 加载堡垒机配置
+	// 1. 加载堡垒机配置 (读取 bastion.yaml)
 	cfg, err := config.LoadBastionConfig("bastion.yaml")
 	if err != nil {
 		log.Fatalf("Failed to load bastion config: %v", err)
 	}
 
-	// 2. 连接远程 gRPC 审计服务
+	// 2. 连接远程 gRPC 审计服务 (使用非 TLS 连接)
 	conn, err := grpc.Dial(
 		cfg.AuditAddr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
@@ -37,7 +37,7 @@ func main() {
 		AuditClient: auditClient,
 	}
 
-	// 5. 启动堡垒机服务
+	// 5. 启动堡垒机服务 (阻塞运行)
 	if err := proxy.Start(); err != nil {
 		log.Fatalf("Bastion Proxy error: %v", err)
 	}
