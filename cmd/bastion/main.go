@@ -19,7 +19,7 @@ func main() {
 	}
 
 	// 2. 连接远程 gRPC 审计服务 (使用非 TLS 连接)
-	conn, err := grpc.Dial(
+	conn, err := grpc.NewClient(
 		cfg.AuditAddr,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)

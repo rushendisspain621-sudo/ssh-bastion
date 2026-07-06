@@ -65,7 +65,7 @@ func startBastionService() {
 		log.Fatalf("[Bastion] Failed to load config: %v", err)
 	}
 
-	conn, err := grpc.Dial(cfg.AuditAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient(cfg.AuditAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("[Bastion] Failed to connect to audit server: %v", err)
 	}
